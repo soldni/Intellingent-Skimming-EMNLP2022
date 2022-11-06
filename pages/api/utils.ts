@@ -3,12 +3,22 @@ import creds from './joseph.json'
 
 const SHEET_ID = '11hN1QgPiFEmnjj0NSdlinEv3f8G7UCwKIsQ_MOpkOJ4'
 
+export interface PapeoType {
+	author: string
+	email: string
+	title: string
+	status: string
+	link: string
+	conference: string
+	abstract: string
+}
+
 export async function getPapeos() {
 	try {
 		const target = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 		const jwt = new google.auth.JWT(
 			creds.client_email,
-			null,
+			undefined,
 			(creds.private_key || '').replace(/\\n/g, '\n'),
 			target
 		);
@@ -20,7 +30,7 @@ export async function getPapeos() {
 		});
 
 		const rows = response.data.values;
-		if (rows.length) {
+		if (rows && rows.length) {
 			let papeos = rows.map((row) => ({
 				author: row[0],
 				email: row[1],
@@ -31,9 +41,11 @@ export async function getPapeos() {
 				abstract: row[6]
 			}))
 			papeos = papeos
+								.filter(papeo => Boolean(papeo))
 								.filter(papeo => ! Object.values(papeo).some(value => value === undefined))
 								.filter(papeo => papeo.status.toLowerCase().trim() === 'done')
-			return papeos
+			console.log('POST', papeos)
+			return papeos as PapeoType[]
 		}
 	} catch (err) {
 		console.log(err);

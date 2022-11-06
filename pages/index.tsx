@@ -1,13 +1,14 @@
 import {useState, useCallback, useEffect} from 'react'
-import Papeo from './papeo.tsx'
-import Header from './header.tsx'
-import { getPapeos } from './utils.ts'
+import Papeo from './papeo'
+import Header from './header'
+import { getPapeos, PapeoType } from './api/utils'
 
-export default function Home({papeos}) {
+
+export default function Home({papeos}: {papeos: PapeoType[]}) {
 
 	const [filteredPapeos, setFilteredPapeos] = useState(papeos)
 	const [query, setQuery] = useState('')
-	const handleQuery = useCallback((event) => {
+	const handleQuery = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 		setQuery(event.target.value)
 	}, [])
 

@@ -1,8 +1,8 @@
 import {useState, useCallback} from 'react'
 
-export default function ExpandableText({text, length=205}) {
+export default function ExpandableText({text, length=205}: {text: string, length?: number}) {
   const [expand, setExpand] = useState(false);
-  const handleClick = useCallback((event) => {
+  const handleClick = useCallback((event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     setExpand(e => !e)
   }, [])
