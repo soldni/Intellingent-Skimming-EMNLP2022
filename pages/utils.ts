@@ -20,7 +20,6 @@ export async function getPapeos() {
 		});
 
 		const rows = response.data.values;
-		console.log(rows)
 		if (rows.length) {
 			let papeos = rows.map((row) => ({
 				author: row[0],
@@ -31,7 +30,6 @@ export async function getPapeos() {
 				conference: row[5],
 				abstract: row[6]
 			}))
-			console.log(papeos)
 			papeos = papeos
 								.filter(papeo => ! Object.values(papeo).some(value => value === undefined))
 								.filter(papeo => papeo.status.toLowerCase().trim() === 'done')
