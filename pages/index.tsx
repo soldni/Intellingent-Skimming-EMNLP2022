@@ -174,6 +174,6 @@ export async function getStaticProps() {
 		props: {
 			papeos
 		},
-		revalidate: 1, // In seconds
+		revalidate: 25, // In seconds
 	};
 }
