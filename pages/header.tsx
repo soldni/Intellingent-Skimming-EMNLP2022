@@ -44,7 +44,7 @@ export default function Header() {
 					</span>
 
 					<span style={{display: 'flex', alignItems: 'baseline'}}>
-						<a style={{color: '#1857b6'}} href='https://cscw.acm.org/2022/' target='_blank' rel='noopener noreferrer'>cscw.acm.org/2022</a>
+						<a style={{color: '#1857b6'}} href='https://2022.emnlp.org/' target='_blank' rel='noopener noreferrer'>2022.emnlp.org</a>
 						<span style={{marginLeft: '6px'}}>
 							<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<g opacity="0.6">
