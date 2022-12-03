@@ -7,6 +7,10 @@ body {
   background-color: rgb(245, 246, 247);
 }
 
+body {
+  overflow-y: scroll;
+}
+
 a {
   color: inherit;
   text-decoration: none;

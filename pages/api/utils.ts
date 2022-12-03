@@ -1,16 +1,20 @@
 import { google } from 'googleapis'
 import creds from './joseph.json'
 
+
 const SHEET_ID = '11hN1QgPiFEmnjj0NSdlinEv3f8G7UCwKIsQ_MOpkOJ4'
+const SHEET_NAME = 'Sheet2'
 
 export interface PapeoType {
-	author: string
-	email: string
+	authors: string[]
 	title: string
+	reader: string
+	arr: string
+	track: string
+	type: string
+	sha1: string
 	status: string
-	link: string
-	conference: string
-	abstract: string
+	index: string
 }
 
 export async function getPapeos() {
@@ -26,25 +30,27 @@ export async function getPapeos() {
 		const sheets = google.sheets({ version: 'v4', auth: jwt });
 		const response = await sheets.spreadsheets.values.get({
 			spreadsheetId: SHEET_ID,
-			range: 'Sheet1', // sheet name
+			range: SHEET_NAME
 		});
 
 		const rows = response.data.values;
 		if (rows && rows.length) {
 			let papeos = rows.map((row) => ({
-				author: row[0],
-				email: row[1],
-				title: row[2],
-				status: row[3],
-				link: row[4],
-				conference: row[5],
-				abstract: row[6]
+				authors: row[6].replace(' and ', ', ').split(', '),
+				title: row[3],
+				reader: row[11],
+				arr: row[9] ?? '',
+				track: row[5],
+				type: row[8],
+				sha1: row[10],
+				status: row[4].substring(7),
+				index: `${row[6]} ${row[3]} ${row[5]} ${row[8]} ${row[4].substring(7)}`.toLowerCase()
 			}))
+			papeos.shift()
 			papeos = papeos
 								.filter(papeo => Boolean(papeo))
 								.filter(papeo => ! Object.values(papeo).some(value => value === undefined))
-								.filter(papeo => papeo.status.toLowerCase().trim() === 'done')
-			console.log('POST', papeos)
+			console.log('POST', papeos.length)
 			return papeos as PapeoType[]
 		}
 	} catch (err) {

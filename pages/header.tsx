@@ -2,7 +2,7 @@
 export default function Header() {
   return (
     <>
-			<h3 style={{marginBottom: '6px', marginTop: 0}}>ACM CSCW 2022</h3>
+			<h3 style={{marginBottom: '6px', marginTop: 0}}>EMNLP 2022</h3>
 				<div style={{display: 'flex', fontSize: '12px', alignItems: 'baseline'}}>
 					<span style={{display: 'flex', alignItems: 'baseline'}}>
 						<span style={{marginRight: '6px'}}>
@@ -17,7 +17,7 @@ export default function Header() {
 								</defs>
 							</svg>
 						</span>
-						<span>8-22 November 2022</span>
+						<span>7 - 11 December 2022</span>
 					</span>
 
 					<span style={{margin: '0 6px', position: 'relative', top: '-2px'}}>

@@ -3,14 +3,26 @@ import Papeo from './papeo'
 import Header from './header'
 import { getPapeos, PapeoType } from './api/utils'
 
+const useDebouncedEffect = (effect: () => void, deps: any[], delay: number) => {
+	useEffect(() => {
+			const handler = setTimeout(() => effect(), delay);
+
+			return () => clearTimeout(handler);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [...(deps || []), delay]);
+}
+
 
 export default function Home({papeos}: {papeos: PapeoType[]}) {
 
 	const [filteredPapeos, setFilteredPapeos] = useState(papeos)
+	const [queryValue, setQueryValue] = useState('')
 	const [query, setQuery] = useState('')
 	const handleQuery = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-		setQuery(event.target.value)
+		setQueryValue(event.target.value)
 	}, [])
+
+	useDebouncedEffect(() => setQuery(queryValue), [queryValue], 250)
 
 	useEffect(() => {
 		const trimmed = query.trim().toLowerCase()
@@ -18,7 +30,8 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 			setFilteredPapeos(papeos)
 			return
 		}
-		setFilteredPapeos(papeos.filter(papeo => papeo.title.toLowerCase().includes(trimmed)))
+		const newPapeos = papeos.filter(papeo => papeo.index.includes(trimmed))
+		setFilteredPapeos(newPapeos)
 	}, [query, papeos])
 
 
@@ -28,19 +41,26 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 				<Header />
 
 				<hr/>
-				<input type="text" placeholder='🔎 Filter Papers' style={{
-					width: '100%',
-					padding: '6px 8px',
-					borderRadius: '4px',
-					border: '1px solid #aaa',
-					marginTop: '-4px',
-					marginBottom: '-2px'
-				}} value={query} onChange={handleQuery} />
+				<div style={{display: 'flex'}}>
+					<input type="text" placeholder='🔎 Filter Papers' style={{
+						flexGrow: 1,
+						padding: '6px 8px',
+						borderRadius: '4px',
+						border: '1px solid #aaa',
+						marginTop: '-4px',
+						marginBottom: '-2px',
+						marginRight: '4px'
+					}} value={queryValue} onChange={handleQuery} />
+					<a href='#' style={{ color: '#1857b6' }} onClick={(event) => {
+						event.preventDefault()
+						setQueryValue('')
+					}}>clear</a>
+				</div>
 				<hr/>
 
 				{filteredPapeos.map(papeo => {
 					return (<>
-						<Papeo papeo={papeo} key={papeo.title} />
+						<Papeo papeo={papeo} key={papeo.title} setQuery={setQueryValue}/>
 						<hr/>
 					</>)
 				})}
@@ -54,7 +74,7 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 						height: '6px',
 						background: 'linear-gradient(270deg, #5492EF 0%, rgba(84, 146, 239, 0) 100%), #0F3875'
 						}}/>
-					<div style={{marginBottom: '12px'}}>Statistics</div>
+					<div style={{marginBottom: '12px'}}>Semantic Reader SCIM Project</div>
 
 					<div style={{display: 'flex', justifyContent: 'space-between'}}>
 						<div style={{
@@ -63,7 +83,7 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 							fontStyle: 'normal',
 							fontWeight: 400,
 							color: '#536479'
-							}}>Papeos Created</div>
+							}}>Skimming Enabled Papers</div>
 						<div style={{
 							fontSize: '12px',
 							lineHeight: '22px',
@@ -80,14 +100,14 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 							fontStyle: 'normal',
 							fontWeight: 400,
 							color: '#536479'
-							}}>Publications</div>
+							}}>Total Publications</div>
 						<div style={{
 							fontSize: '12px',
 							lineHeight: '22px',
 							fontStyle: 'normal',
 							fontWeight: 700,
 							color: '#B85900'
-							}}>Unknown</div>
+							}}>1,377</div>
 					</div>
 
 					<div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -104,27 +124,9 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 							fontStyle: 'normal',
 							fontWeight: 700,
 							color: '#B85900'
-							}}>Unknown</div>
+							}}>??.?%</div>
 					</div>
 
-					<hr />
-					<div style={{
-						fontSize: '12px',
-						lineHeight: '22px',
-						fontStyle: 'normal',
-						fontWeight: 500,
-						}}>
-						Are you a CSCW 2022 author?
-					</div>
-					<div style={{
-						fontSize: '12px',
-						lineHeight: '22px',
-						fontStyle: 'normal',
-						fontWeight: 500,
-						color: '#1857b6'
-						}}>
-						<a href='https://docs.google.com/document/d/1ZuRS0CREp_ApnzEWhxKSdiyzp0B7zBF3Ip05l5Nt5Dc' target='_blank' rel='noopener noreferrer'>Create a Papeo for your paper!</a>
-					</div>
 					<hr />
 					<div style={{
 							fontSize: '12px',
@@ -135,7 +137,7 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 							display: 'flex',
 							justifyContent: 'space-between'
 						}}>
-						<a href='' target='_blank' rel='noopener noreferrer'>About This Project</a>
+						<a href='https://www.semanticscholar.org/product/semantic-reader' target='_blank' rel='noopener noreferrer'>About This Project</a>
 						<div style={{width: '123px', height: '22px', transform: 'scale(0.6)', transformOrigin: 'top left'}}>
 						<svg width="202" height="36" viewBox="0 0 202 36" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M63.5703 14.6521C63.5343 14.7241 63.4623 14.7961 63.4263 14.8321C63.3903 14.8681 63.3183 14.9041 63.2103 14.9041C63.1383 14.9041 63.0303 14.8681 62.9223 14.7961C62.8143 14.7241 62.6703 14.6161 62.4903 14.5441C62.3103 14.4361 62.1303 14.3641 61.8783 14.2921C61.6623 14.2201 61.3743 14.1841 61.0503 14.1841C60.7623 14.1841 60.4743 14.2201 60.2583 14.2921C60.0423 14.3641 59.8263 14.4721 59.6823 14.6161C59.5383 14.7601 59.3943 14.9041 59.3223 15.1201C59.2503 15.3001 59.2143 15.5161 59.2143 15.7321C59.2143 16.0201 59.2863 16.2361 59.4303 16.4161C59.5743 16.5961 59.7543 16.7401 60.0063 16.8841C60.2223 17.0281 60.5103 17.1361 60.7983 17.2081C61.0863 17.3161 61.4103 17.3881 61.6983 17.4961C62.0223 17.6041 62.3103 17.7121 62.5983 17.8561C62.8863 18.0001 63.1743 18.1801 63.3903 18.3601C63.6063 18.5761 63.8223 18.8281 63.9663 19.1161C64.1103 19.4041 64.1823 19.7641 64.1823 20.1961C64.1823 20.6641 64.1103 21.0961 63.9303 21.4921C63.7863 21.8881 63.5343 22.2481 63.2463 22.5361C62.9583 22.8241 62.5623 23.0761 62.1303 23.2561C61.6983 23.4361 61.1943 23.5081 60.6543 23.5081C60.3303 23.5081 60.0063 23.4721 59.6823 23.4001C59.3583 23.3281 59.0703 23.2561 58.7823 23.1121C58.4943 23.0041 58.2423 22.8601 57.9903 22.6801C57.7383 22.5001 57.5223 22.3201 57.3423 22.1041L57.7743 21.3481C57.8103 21.2761 57.8823 21.2401 57.9183 21.2041C57.9903 21.1681 58.0623 21.1321 58.1343 21.1321C58.2423 21.1321 58.3503 21.1681 58.4943 21.2761C58.6383 21.3841 58.7823 21.4921 58.9983 21.6361C59.1783 21.7801 59.4303 21.8881 59.7183 21.9961C60.0063 22.1041 60.3303 22.1401 60.7263 22.1401C61.0503 22.1401 61.3383 22.1041 61.5903 21.9961C61.8423 21.9241 62.0583 21.7801 62.2383 21.6361C62.4183 21.4921 62.5263 21.2761 62.6343 21.0601C62.7423 20.8441 62.7783 20.5921 62.7783 20.3041C62.7783 20.0161 62.7063 19.7641 62.5623 19.5481C62.4183 19.3681 62.2383 19.1881 61.9863 19.0441C61.7703 18.9001 61.4823 18.7921 61.1943 18.7201C60.9063 18.6121 60.5823 18.5401 60.2943 18.4321C59.9703 18.3241 59.6823 18.2161 59.3943 18.0721C59.1063 17.9281 58.8183 17.7841 58.6023 17.5681C58.3863 17.3521 58.1703 17.1001 58.0263 16.7761C57.8823 16.4521 57.8103 16.0561 57.8103 15.5881C57.8103 15.2281 57.8823 14.8681 58.0263 14.5081C58.1703 14.1481 58.3863 13.8601 58.6743 13.5721C58.9623 13.3201 59.2863 13.1041 59.7183 12.9241C60.1143 12.7441 60.5823 12.6721 61.1223 12.6721C61.6983 12.6721 62.2383 12.7801 62.7423 12.9601C63.2463 13.1401 63.6423 13.4281 64.0383 13.7521L63.5703 14.6521Z" fill="#11223D"/>
@@ -174,6 +176,6 @@ export async function getStaticProps() {
 		props: {
 			papeos
 		},
-		revalidate: 25, // In seconds
+		revalidate: 60, // In seconds
 	};
 }
