@@ -74,8 +74,43 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 						height: '6px',
 						background: 'linear-gradient(270deg, #5492EF 0%, rgba(84, 146, 239, 0) 100%), #0F3875'
 						}}/>
-					<div style={{marginBottom: '12px'}}>Semantic Reader SCIM Project</div>
+					<div style={{
+						marginBottom: '12px',
+						fontSize: '24px',
+						fontWeight: 'bold',
+					}}>
+						Intelligent Skimming on Semantic Scholar
+					</div>
 
+					<div style={{display: 'flex', justifyContent: 'space-between'}}>
+						<div style={{
+						fontSize: '12px',
+						lineHeight: '22px',
+						fontStyle: 'normal',
+						fontWeight: 400,
+						color: '#536479'
+						}}>
+							<p style={{
+								lineHeight: '1.2',
+								marginBottom: '1em',
+							}}>
+								Feeling overwhelmed by EMNLP 2022 proceedings?  Would like a faster way to skim papers? The Semantic Scholar team at AI2 is testing a new <b>intelligent skimming system</b> to surface the most important parts of a manuscript.
+							</p>
+							 <img style={{
+								maxWidth: '100%',
+								boxShadow: "0px 0px 4px rgba(0,0,0,0.5)",
+								border: "1px solid grey",
+							 }}
+							 src="https://lh3.googleusercontent.com/u/0/drive-viewer/AFDK6gMbhFGcaSPxe7jDBW3RyB75LLQAGG6qGcZwoAEC-hua2MEsXharNmUjfWQ9jmCX4ytBok0R1oegoWFCkCKb1U4MyCEtBw=w2376-h2070" alt="Preview of skimming"></img>
+							<p style={{
+								lineHeight: '1.2',
+								marginBottom: '1em',
+							}}>
+								To test this system, <b>open the PDF</b> of any of the papers on the right, and click on the <b>skim icon as shown above</b>.
+							</p>
+						</div>
+					</div>
+{/*
 					<div style={{display: 'flex', justifyContent: 'space-between'}}>
 						<div style={{
 							fontSize: '12px',
@@ -91,7 +126,7 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 							fontWeight: 700,
 							color: '#B85900'
 							}}>{papeos.length}</div>
-					</div>
+					</div> */}
 
 					<div style={{display: 'flex', justifyContent: 'space-between'}}>
 						<div style={{
@@ -108,23 +143,6 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 							fontWeight: 700,
 							color: '#B85900'
 							}}>1,377</div>
-					</div>
-
-					<div style={{display: 'flex', justifyContent: 'space-between'}}>
-						<div style={{
-							fontSize: '12px',
-							lineHeight: '22px',
-							fontStyle: 'normal',
-							fontWeight: 400,
-							color: '#536479'
-							}}>Acceptance Rate</div>
-						<div style={{
-							fontSize: '12px',
-							lineHeight: '22px',
-							fontStyle: 'normal',
-							fontWeight: 700,
-							color: '#B85900'
-							}}>??.?%</div>
 					</div>
 
 					<hr />
