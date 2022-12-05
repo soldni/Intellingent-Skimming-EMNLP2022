@@ -34,7 +34,7 @@ export default function Header() {
 								</g>
 							</svg>
 						</span>
-						<span>Virtual</span>
+						<span>Abu Dhabi, UAE & Online</span>
 					</span>
 
 					<span style={{margin: '0 6px', position: 'relative', top: '-2px'}}>
