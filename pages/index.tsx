@@ -94,7 +94,7 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 								lineHeight: '1.2',
 								marginBottom: '1em',
 							}}>
-								Feeling overwhelmed by EMNLP 2022 proceedings?  Would like a faster way to skim papers? The Semantic Scholar team at AI2 is testing a new <b>intelligent skimming system</b> to surface the most important parts of a manuscript.
+								Feeling overwhelmed by EMNLP 2022 proceedings?  Would you like a faster way to skim papers? The Semantic Scholar team at AI2 is testing a new <b>intelligent skimming system</b> to surface the most important parts of a manuscript.
 							</p>
 							 <img style={{
 								maxWidth: '100%',
