@@ -37,7 +37,7 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 
 	return (
 		<div style={{width: '100%', height: 'auto', display: 'flex', justifyContent: 'center', backgroundColor: '#f5f6f7', color: '#2e3743', padding: '60px 0px'}}>
-			<div style={{width: '600px'}}>
+			<div className="not_mobile" style={{width: '600px'}}>
 				<Header />
 
 				<hr/>
@@ -83,14 +83,14 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 					</div>
 
 					<div style={{display: 'flex', justifyContent: 'space-between'}}>
-						<div id='mobile' style={{
-						fontSize: '12px',
-						lineHeight: '22px',
+						<div className='mobile' style={{
+						fontSize: '14px',
+						lineHeight: '1em',
 						fontStyle: 'normal',
 						fontWeight: 700,
-						color: '#536479'
+						color: '#dd042a'
 						}}>
-							<p>The semantic reader and skimming features are only available on desktop.</p>
+							<p>The Semantic Reader and intelligent skimming feature are only available on a desktop browser.</p>
 						</div>
 					</div>
 
