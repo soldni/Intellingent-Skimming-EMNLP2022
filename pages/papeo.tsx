@@ -7,7 +7,7 @@ export default function Papeo({papeo, setQuery}: {papeo: PapeoType, setQuery: Di
   return (
     <div>
       <div style={{fontWeight: 500, fontSize: '14px', lineHeight: '18px', color: '#1857b6', marginBottom: '2px'}}>
-        <a href={`https://www.semanticscholar.org/paper/${papeo.sha1}`} target='_blank' rel="noreferrer">{papeo.title}</a>
+        <a href={`https://www.semanticscholar.org/reader/${papeo.sha1}?experiments=&features=reader_skimming%3Atrue`} target='_blank' rel="noreferrer">{papeo.title}</a>
       </div>
       <div style={{fontWeight: 300, fontSize: '12px', color: '#536479', marginBottom: '4px'}}>
         <span>{papeo.authors.map((author, idx) => {
