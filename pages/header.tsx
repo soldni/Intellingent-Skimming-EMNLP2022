@@ -2,7 +2,7 @@
 export default function Header() {
   return (
     <>
-			<h3 style={{marginBottom: '6px', marginTop: 0}}>EMNLP 2022</h3>
+			<h3 style={{marginBottom: '6px', marginTop: 0}}>EMNLP 2022 Papers with Semantic Skimming</h3>
 				<div style={{display: 'flex', fontSize: '12px', alignItems: 'baseline'}}>
 					<span style={{display: 'flex', alignItems: 'baseline'}}>
 						<span style={{marginRight: '6px'}}>
