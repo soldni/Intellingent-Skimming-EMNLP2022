@@ -83,6 +83,18 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 					</div>
 
 					<div style={{display: 'flex', justifyContent: 'space-between'}}>
+						<div id='mobile' style={{
+						fontSize: '12px',
+						lineHeight: '22px',
+						fontStyle: 'normal',
+						fontWeight: 700,
+						color: '#536479'
+						}}>
+							<p>The semantic reader and skimming features are only available on desktop.</p>
+						</div>
+					</div>
+
+					<div style={{display: 'flex', justifyContent: 'space-between'}}>
 						<div style={{
 						fontSize: '12px',
 						lineHeight: '22px',
