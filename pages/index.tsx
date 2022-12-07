@@ -49,7 +49,8 @@ export default function Home({papeos}: {papeos: PapeoType[]}) {
 						border: '1px solid #aaa',
 						marginTop: '-4px',
 						marginBottom: '-2px',
-						marginRight: '4px'
+						marginRight: '4px',
+						background: 'white'
 					}} value={queryValue} onChange={handleQuery} />
 					<a href='#' style={{ color: '#1857b6' }} onClick={(event) => {
 						event.preventDefault()
